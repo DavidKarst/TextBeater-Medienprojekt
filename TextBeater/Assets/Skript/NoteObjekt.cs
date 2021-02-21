@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class NoteObjekt : MonoBehaviour
 {
+    
     public bool pressd;
     public KeyCode pressKey;
     // Start is called before the first frame update
@@ -19,8 +20,13 @@ public class NoteObjekt : MonoBehaviour
         {
             if (pressd)
             {
+                
                 gameObject.SetActive(false);
+
+                GameManager.instance.NoteHit();
+
             }
+            
         }
 
     }
@@ -39,6 +45,7 @@ public class NoteObjekt : MonoBehaviour
         {
 
             pressd = false;
+            GameManager.instance.NoteMisses();
         }
     }
 
