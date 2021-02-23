@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,10 +12,22 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance;
 
+    public int currentScore;
+    public int scorePerNote = 100;
+
+    public int currentMultiplier;
+    public int multiplierTracker;
+    public int[] multiplierThreshlds;
+
+    public Text scoreText;
+    public Text mulitiText;
+
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
+        scoreText.text = "Score: 0";
+        currentMultiplier = 1;
     }
 
     // Update is called once per frame
@@ -35,9 +48,32 @@ public class GameManager : MonoBehaviour
     public void NoteHit()
     {
         Debug.Log("Hit");
+
+        if(currentMultiplier < multiplierThreshlds.Length)
+        {
+
+        multiplierTracker++;
+
+        if(multiplierThreshlds[currentMultiplier - 1] <= multiplierTracker)
+        {
+            multiplierTracker = 0;
+            currentMultiplier++;
+        }
+
+        }
+
+        mulitiText.text = "Multiplier: x" + currentMultiplier;
+
+        currentScore += scorePerNote * currentMultiplier;
+        scoreText.text = "Score: " + currentScore;
     }
     public void NoteMisses()
     {
         Debug.Log("missNote");
+        currentMultiplier = 1;
+        multiplierTracker = 0;
+        mulitiText.text = "Multiplier: x" + currentMultiplier;
+
+
     }
 }

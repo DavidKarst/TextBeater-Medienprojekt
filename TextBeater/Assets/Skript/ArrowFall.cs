@@ -18,10 +18,10 @@ public class ArrowFall : MonoBehaviour
     {
         if(!start)
         {
-            if(Input.anyKeyDown)
-            {
-                start = true;
-            }
+            //if(Input.anyKeyDown)
+            //{
+            //    start = true;
+            //}
         } else
         {
             transform.position -= new Vector3(0f, beatTempo * Time.deltaTime, 0f);
