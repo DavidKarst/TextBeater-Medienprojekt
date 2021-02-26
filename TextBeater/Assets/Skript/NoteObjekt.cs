@@ -7,6 +7,12 @@ public class NoteObjekt : MonoBehaviour
     
     public bool pressd;
     public KeyCode pressKey;
+
+    public GameObject HitEffekt, goodEffect, perfectEffekt, missEffekt;
+
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +29,23 @@ public class NoteObjekt : MonoBehaviour
                 
                 gameObject.SetActive(false);
 
-                GameManager.instance.NoteHit();
+                //GameManager.instance.NoteHit();
+            if(Mathf.Abs( transform.position.y) > 0.25)
+            {
+                    Debug.Log("Normal HIT");
+                    GameManager.instance.NormalHit();
+                    Instantiate(HitEffekt, transform.position, HitEffekt.transform.rotation);
+            } else if(Mathf.Abs(transform.position.y) > 0.05f)
+            {
+                    Debug.Log("Good HIT");
+                    GameManager.instance.GoodHit();
+                    Instantiate(goodEffect, transform.position, goodEffect.transform.rotation);
+             }else
+                {
+                    Debug.Log("Perfekt HIT");
+                    GameManager.instance.PerfectHit();
+                    Instantiate(perfectEffekt, transform.position, perfectEffekt.transform.rotation);
+                }
 
             }
             
@@ -45,7 +67,8 @@ public class NoteObjekt : MonoBehaviour
         {
 
             pressd = false;
-            GameManager.instance.NoteMisses();
+           GameManager.instance.NoteMisses();
+            Instantiate(missEffekt, transform.position, missEffekt.transform.rotation);
         }
     }
 
